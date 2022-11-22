@@ -13,18 +13,21 @@ protocol Endpoint {
     var method: HTTPMethod { get }
     var header: [String: String]? { get }
     var body: [String: Any]? { get }
+    var query: [URLQueryItem]? { get }
 }
 
 extension Endpoint {
     var method: HTTPMethod { .get }
     var header: [String: String]? { nil }
     var body: [String: Any]? { nil }
+    var query: [URLQueryItem]? { nil }
     
     var urlRequest: URLRequest? {
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = host
         urlComponents.path = path
+        urlComponents.queryItems = query
         
         guard let url = urlComponents.url else { return nil }
         

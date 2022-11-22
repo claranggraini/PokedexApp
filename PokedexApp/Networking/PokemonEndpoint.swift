@@ -9,6 +9,7 @@ import Foundation
 
 enum PokemonEndpoint {
     case getPokemons
+    case getPokemonDetail(name: String)
 }
 
 extension PokemonEndpoint: Endpoint {
@@ -19,18 +20,16 @@ extension PokemonEndpoint: Endpoint {
     var path: String {
         switch self {
         case .getPokemons:
-            return "api/v2/pokemon"
-        
+            return "/api/v2/pokemon"
+        case .getPokemonDetail(let name):
+            return "/api/v2/pokemon/\(name)"
         }
     }
     
     var header: [String : String]? {
         switch self{
-        case .getPokemons:
-            return [
-                
-                "Content-Type": "application/json;charset=utf-8"
-            ]
+        default:
+            return nil
         }
         
     }
@@ -39,13 +38,24 @@ extension PokemonEndpoint: Endpoint {
         switch self {
         case .getPokemons:
             return .get
+        case .getPokemonDetail:
+            return .get
         }
     }
 
     var body: [String : Any]? {
         switch self {
+        default:
+            return nil
+        }
+    }
+    
+    var query: [URLQueryItem]? {
+        switch self{
         case .getPokemons:
-            return ["limit": 100]
+            return [URLQueryItem(name: "limit", value: String(100))]
+        default:
+            return nil
         }
     }
 }

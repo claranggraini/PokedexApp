@@ -35,11 +35,13 @@ class NetworkService: NetworkServicing {
             NetworkLogger.log(data: data, response: response)
             #endif
             
-            guard response.statusCode != 401 else {
-                return .failure(.unauthorized)
+            guard response.statusCode != 404 else {
+                print("response failed: \(response.statusCode)")
+                return .failure(.invalidResponse)
             }
             
             guard let decodedData = try? JSONDecoder().decode(model, from: data) else {
+                print("Fialed decode")
                 return .failure(.decoding)
             }
             

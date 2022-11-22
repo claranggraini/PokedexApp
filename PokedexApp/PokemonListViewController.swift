@@ -10,6 +10,7 @@ import UIKit
 class PokemonListViewController: UIViewController {
     
     var didSendEventClosure: ((PokemonListViewController.Event) -> Void)?
+    let viewModel = PokemonListViewViewModel()
     
     let nameLbl: UILabel = {
        let lbl = UILabel()
@@ -30,8 +31,11 @@ class PokemonListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .systemBackground
-        
-        
+        self.setupBinders()
+        Task{
+            await viewModel.fetchPokemonListData()
+            await viewModel.fetchPokemonDetailData()
+        }
         self.view.addSubview(nameLbl)
         self.view.addSubview(detailBtn)
         NSLayoutConstraint.activate([
@@ -57,6 +61,10 @@ class PokemonListViewController: UIViewController {
     
     deinit {
         print("pokemonListViewController deinit")
+    }
+    
+    private func setupBinders(){
+        
     }
 
 }
