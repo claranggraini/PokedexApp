@@ -53,7 +53,7 @@ extension PokemonEndpoint: Endpoint {
     var query: [URLQueryItem]? {
         switch self{
         case .getPokemons:
-            return [URLQueryItem(name: "limit", value: String(100))]
+            return [URLQueryItem(name: "limit", value: String(20))]
         default:
             return nil
         }

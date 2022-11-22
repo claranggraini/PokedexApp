@@ -73,10 +73,12 @@ class TabCoordinator: NSObject, Coordinator {
             
             let pokemonListVC = PokemonListViewController()
             
-            pokemonListVC.didSendEventClosure = { [weak self] event in
+            pokemonListVC.didSendEventClosure = { [weak self] event, pokemon in
                 switch event {
                 case .detail:
-                    self?.navigationController.pushViewController(DetailPokemonViewController(), animated: true)
+                    let detailVC = DetailPokemonViewController()
+                    detailVC.pokemon = pokemon
+                    self?.navigationController.pushViewController(detailVC, animated: true)
                 }
             }
             

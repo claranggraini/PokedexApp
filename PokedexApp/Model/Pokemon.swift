@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct PokemonList{
     let name: String
@@ -14,20 +15,30 @@ struct PokemonList{
 struct Pokemon{
     let id: Int?
     let name: String?
-    let sprite: String?
+    let sprite: UIImage?
     let stats: [Stat]?
     let moves: [Move]?
     let height: Int?
     let weight: Int?
     
-    init(id: Int?, name: String?, sprite: String?, stats: [Stat]?, moves: [Move]?, height: Int?, weight: Int?) {
+    init(id: Int?, name: String?, sprite: UIImage?, stats: [Stat]?, moves: [Move]?, height: Int?, weight: Int?) {
         self.id = id ?? 0
         self.name = name ?? "Pokemon Name"
-        self.sprite = sprite ?? "Pokemon Image"
+        self.sprite = sprite ?? UIImage()
         self.stats = stats ?? []
         self.moves = moves ?? []
         self.height = height ?? 0
         self.weight = weight ?? 0
+    }
+    
+    init(){
+        self.id = 0
+        self.name = "Pokemon Name"
+        self.sprite = UIImage()
+        self.stats = []
+        self.moves = []
+        self.height = 0
+        self.weight = 0
     }
 }
 

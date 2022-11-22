@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 final class PokemonListViewViewModel{
     var pokemons: ObservableObject<[Pokemon]?> = ObservableObject(nil)
@@ -31,6 +32,7 @@ final class PokemonListViewViewModel{
         switch pokemonListResult {
         case .success(let response):
             pokemonList = PokemonMapper.mapPokemonListResponsesToModel(input: response)
+           
         case .failure(let error):
             errorAlert.value = error.localizedDescription
             isLoading.value = false
@@ -41,18 +43,31 @@ final class PokemonListViewViewModel{
         
         for pr in pokemonList{
             let result = await networkService.request(to: PokemonEndpoint.getPokemonDetail(name: pr.name), decodeTo: PokemonResponse.self)
-
+            
             switch result {
             case .success(let response):
-                pokemonDetailList.append(PokemonMapper.mapPokemonResponsesToModel(input: response))
-                print(response.name)
+                let pokemonSprite = await fetchPokemonSprite(url: response.sprites?.other?.officialArtwork?.frontDefault?.absoluteString ?? "")
+                pokemonDetailList.append(PokemonMapper.mapPokemonResponsesToModel(input: response, pokemonSprite: pokemonSprite))
+                
             case .failure(let error):
                 errorAlert.value = error.localizedDescription
                 isLoading.value = false
             }
         }
         pokemons.value = pokemonDetailList
+//        print("isLoading: \(String(describing: isLoading.value))")
         isLoading.value = false
+//        print("isLoading: \(String(describing: isLoading.value))")
     }
     
+    func fetchPokemonSprite(url: String) async -> UIImage{
+        let pokemonSprite = await networkService.requestImage(url: url)
+        switch pokemonSprite{
+        case .success(let response):
+            return response
+        case .failure(let error):
+            errorAlert.value = error.localizedDescription
+        }
+        return UIImage()
+    }
 }

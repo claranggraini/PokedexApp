@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 final class PokemonMapper{
    
@@ -17,26 +18,31 @@ final class PokemonMapper{
         }
     }
     
-    static func mapPokemonResponsesToModel(input pokemonResponse: PokemonResponse) -> Pokemon{
+    static func mapPokemonResponsesToModel(input pokemonResponse: PokemonResponse, pokemonSprite: UIImage) -> Pokemon{
         var pokemonStat = Array<Stat>()
         var pokemonMoves = Array<Move>()
         
-        for pokeStat in pokemonResponse.stats{
-            pokemonStat.append(Stat(baseStat: pokeStat.baseStat, name: pokeStat.stat.name))
+        guard let pokemonResponseStats = pokemonResponse.stats else { return Pokemon()}
+        
+        guard let pokemonResponseMoves = pokemonResponse.moves else { return Pokemon() }
+        
+        for pokeStat in pokemonResponseStats{
+            pokemonStat.append(Stat(baseStat: pokeStat.baseStat, name: pokeStat.stat?.name))
         }
         
-        let filteredPokemonMove = pokemonResponse.moves.filter({
-            return $0.versionDetails.contains(where: {
-                $0.moveLearnMethod.name == "level-up"
+        let filteredPokemonMove = pokemonResponseMoves.filter({
+            guard let versionDetail = $0.versionDetails else {return true}
+            return versionDetail.contains(where: {
+                $0.moveLearnMethod?.name == "level-up"
             })
         })
         
         for pokemonMove in filteredPokemonMove {
             
-            pokemonMoves.append(Move(name: pokemonMove.move.name, levelLearnedAt: pokemonMove.versionDetails.first?.levelLearnedAt))
+            pokemonMoves.append(Move(name: pokemonMove.move?.name, levelLearnedAt: pokemonMove.versionDetails?.first?.levelLearnedAt))
         }
         
-        return Pokemon(id: pokemonResponse.id, name: pokemonResponse.name, sprite: pokemonResponse.sprites.other.officialArtwork.frontDefault?.absoluteString, stats: pokemonStat, moves: pokemonMoves, height: pokemonResponse.height, weight: pokemonResponse.weight)
+        return Pokemon(id: pokemonResponse.id, name: pokemonResponse.name, sprite: pokemonSprite, stats: pokemonStat, moves: pokemonMoves, height: pokemonResponse.height, weight: pokemonResponse.weight)
         
     }
 }

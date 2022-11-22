@@ -8,6 +8,7 @@
 import UIKit
 
 class DetailPokemonViewController: UIViewController {
+    var pokemon: Pokemon?
     
     let nameLbl: UILabel = {
        let lbl = UILabel()
@@ -19,7 +20,7 @@ class DetailPokemonViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.title = "Detail Pokemon"
+        self.title = pokemon?.name?.capitalized ?? "Detail Pokemon"
         self.view.backgroundColor = .systemBackground
         self.view.addSubview(nameLbl)
         NSLayoutConstraint.activate([
