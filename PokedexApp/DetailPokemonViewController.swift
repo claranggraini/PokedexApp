@@ -98,7 +98,9 @@ class DetailPokemonViewController: UIViewController {
         guard let pokemon = viewModel.pokemon.value as? Pokemon else{
             return
         }
+        
         if randomBool{
+            
             print("Clara has caught \(pokemon.name ?? "Pokemon Name")")
             viewModel.saveCaughtPokemon(pokemon: pokemon)
         }else{

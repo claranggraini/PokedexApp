@@ -12,22 +12,34 @@ class MyPokemonCollectionViewCell: UICollectionViewCell {
 
     var pokemonEntity: PokemonEntity?{
         didSet{
+           
             nameLbl.text = pokemonEntity?.name?.capitalized
             if let decodedData = Data(base64Encoded: pokemonEntity?.sprite ?? "") {
                 pokemonIV.image = UIImage(data: decodedData)
             }
             
-            if pokemonEntity?.pokemonType?.count == 1, let unwrappedPokeType = pokemonEntity?.pokemonType?[0]{
-                typeBgView.pokemonType = PokemonType(name: unwrappedPokeType)
-                typeBgView.isHidden = false
-            }
-            if pokemonEntity?.pokemonType?.count == 2, let unwrappedPokeType = pokemonEntity?.pokemonType?[1]{
-                typeBgView2.pokemonType = PokemonType(name: unwrappedPokeType)
-                typeBgView2.isHidden = false
-            }
-            if pokemonEntity?.pokemonType?.count == 3, let unwrappedPokeType = pokemonEntity?.pokemonType?[2]{
-                typeBgView3.pokemonType = PokemonType(name: unwrappedPokeType)
-                typeBgView3.isHidden = false
+           
+            if let unwrappedPokeType = pokemonEntity?.pokemonType, let typeCount = pokemonEntity?.pokemonType?.count, typeCount != 0{
+                for i in 0..<typeCount{
+                    switch i{
+                    case 0:
+                        typeBgView.pokemonType = PokemonType(name: unwrappedPokeType[i])
+                        
+                        typeBgView.isHidden = false
+                    case 1:
+                        
+                            typeBgView2.pokemonType = PokemonType(name: unwrappedPokeType[i])
+                        
+                            typeBgView2.isHidden = false
+                    case 2:
+                        typeBgView3.pokemonType = PokemonType(name: unwrappedPokeType[i])
+                        
+                        typeBgView3.isHidden = false
+                    default:
+                        break
+                    }
+                }
+                
             }
             
         }

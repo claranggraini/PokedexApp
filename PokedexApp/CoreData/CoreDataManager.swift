@@ -80,7 +80,8 @@ final class CoreDataManager{
                 pokemonTypes.append(pt.name ?? "Pokemon Type")
             }
         }
-        myPokemon.pokemonType = pokemon.types as? [String] ?? []
+        
+        myPokemon.pokemonType = pokemonTypes
         myPokemon.sprite = pokemon.sprite?.jpegData(compressionQuality: 1)?.base64EncodedString() ?? ""
         myPokemon.weight = Int32(pokemon.weight ?? 0)
         myPokemon.height = Int32(pokemon.height ?? 0)
