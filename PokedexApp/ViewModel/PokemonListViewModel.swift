@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-final class PokemonListViewViewModel{
+final class PokemonListViewModel{
     var pokemons: ObservableObject<[Pokemon]?> = ObservableObject(nil)
     private var pokemonList: [PokemonList] = []
     private var pokemonDetailList: [Pokemon] = []

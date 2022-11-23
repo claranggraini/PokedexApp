@@ -77,7 +77,7 @@ class TabCoordinator: NSObject, Coordinator {
                 switch event {
                 case .detail:
                     let detailVC = DetailPokemonViewController()
-                    detailVC.pokemon = pokemon
+                    detailVC.viewModel.fetchPokemonData(pokemon: pokemon)
                     self?.navigationController.pushViewController(detailVC, animated: true)
                 }
             }

@@ -11,7 +11,7 @@ class PokemonListViewController: UIViewController {
     
     var didSendEventClosure: ((PokemonListViewController.Event,
                               Pokemon) -> Void)?
-    let viewModel = PokemonListViewViewModel()
+    let viewModel = PokemonListViewModel()
     var loadingIndicator: UIView?
     
     let nameLbl: UILabel = {
