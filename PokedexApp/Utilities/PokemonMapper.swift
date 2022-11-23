@@ -21,13 +21,20 @@ final class PokemonMapper{
     static func mapPokemonResponsesToModel(input pokemonResponse: PokemonResponse, pokemonSprite: UIImage) -> Pokemon{
         var pokemonStat = Array<Stat>()
         var pokemonMoves = Array<Move>()
+        var pokemonTypes = Array<PokemonType>()
         
         guard let pokemonResponseStats = pokemonResponse.stats else { return Pokemon()}
         
         guard let pokemonResponseMoves = pokemonResponse.moves else { return Pokemon() }
         
+        guard let pokemonResponseTypes = pokemonResponse.types else {return Pokemon()}
+        
         for pokeStat in pokemonResponseStats{
             pokemonStat.append(Stat(baseStat: pokeStat.baseStat, name: pokeStat.stat?.name))
+        }
+        
+        for pokeType in pokemonResponseTypes{
+            pokemonTypes.append(PokemonType(name: pokeType.type?.name))
         }
         
         let filteredPokemonMove = pokemonResponseMoves.filter({
@@ -42,7 +49,7 @@ final class PokemonMapper{
             pokemonMoves.append(Move(name: pokemonMove.move?.name, levelLearnedAt: pokemonMove.versionDetails?.first?.levelLearnedAt))
         }
         
-        return Pokemon(id: pokemonResponse.id, name: pokemonResponse.name, sprite: pokemonSprite, stats: pokemonStat, moves: pokemonMoves, height: pokemonResponse.height, weight: pokemonResponse.weight)
+        return Pokemon(id: pokemonResponse.id, name: pokemonResponse.name, sprite: pokemonSprite, stats: pokemonStat, moves: pokemonMoves, types: pokemonTypes,height: pokemonResponse.height, weight: pokemonResponse.weight)
         
     }
 }

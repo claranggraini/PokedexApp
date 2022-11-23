@@ -55,9 +55,8 @@ final class PokemonListViewViewModel{
             }
         }
         pokemons.value = pokemonDetailList
-//        print("isLoading: \(String(describing: isLoading.value))")
         isLoading.value = false
-//        print("isLoading: \(String(describing: isLoading.value))")
+        
     }
     
     func fetchPokemonSprite(url: String) async -> UIImage{
