@@ -23,11 +23,12 @@ struct Pokemon{
     let weight: Int?
     
     init(id: Int?, name: String?, sprite: UIImage?, stats: [Stat]?, moves: [Move]?, types: [PokemonType]?, height: Int?, weight: Int?) {
+        
         self.id = id ?? 0
         self.name = name ?? "Pokemon Name"
         self.sprite = sprite ?? UIImage()
         self.stats = stats ?? []
-        self.moves = moves ?? []
+        self.moves = moves?.sorted(by: {$0.levelLearnedAt ?? 0 < $1.levelLearnedAt ?? 0}) ?? []
         self.types = types ?? []
         self.height = height ?? 0
         self.weight = weight ?? 0

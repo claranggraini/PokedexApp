@@ -183,7 +183,7 @@ class HeightWeightWrapperView: UIView{
             
             self.subtitleLbl.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             self.subtitleLbl.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            self.subtitleLbl.topAnchor.constraint(equalTo: self.valLbl.bottomAnchor, constant: 16),
+            self.subtitleLbl.topAnchor.constraint(equalTo: self.valLbl.bottomAnchor, constant: 8),
             self.subtitleLbl.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }
