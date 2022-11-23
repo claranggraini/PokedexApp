@@ -14,22 +14,6 @@ class PokemonListViewController: UIViewController {
     let viewModel = PokemonListViewModel()
     var loadingIndicator: UIView?
     
-    let nameLbl: UILabel = {
-       let lbl = UILabel()
-        lbl.translatesAutoresizingMaskIntoConstraints = false
-        lbl.text = "Welcome to Pokedex!"
-        return lbl
-    }()
-
-    let detailBtn: UIButton = {
-        let btn = UIButton()
-        btn.setTitle("Go to Detail", for: .normal)
-        btn.backgroundColor = .red
-        btn.tintColor = .systemBlue
-        btn.translatesAutoresizingMaskIntoConstraints = false
-        return btn
-    }()
-    
     let pokemonTableView: UITableView = {
         let tv = UITableView()
         
@@ -52,7 +36,7 @@ class PokemonListViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.tabBarController?.navigationItem.title = "Discover"
+        self.tabBarController?.navigationItem.title = "Pokedex"
     }
 
     deinit {

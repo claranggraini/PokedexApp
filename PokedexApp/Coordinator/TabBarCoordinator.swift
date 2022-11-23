@@ -35,7 +35,7 @@ class TabCoordinator: NSObject, Coordinator {
 
     func start() {
         
-        let pages: [TabBarPage] = [.discover, .myPokemon]
+        let pages: [TabBarPage] = [.pokedex, .myPokemon]
             .sorted(by: { $0.pageOrderNumber() < $1.pageOrderNumber() })
         
         let controllers: [UINavigationController] = pages.map({ getTabController($0) })
@@ -53,7 +53,7 @@ class TabCoordinator: NSObject, Coordinator {
         
         tabBarController.setViewControllers(tabControllers, animated: true)
         
-        tabBarController.selectedIndex = TabBarPage.discover.pageOrderNumber()
+        tabBarController.selectedIndex = TabBarPage.pokedex.pageOrderNumber()
        
         tabBarController.tabBar.isTranslucent = false
         
@@ -69,7 +69,7 @@ class TabCoordinator: NSObject, Coordinator {
                                                      tag: page.pageOrderNumber())
 
         switch page {
-        case .discover:
+        case .pokedex:
             
             let pokemonListVC = PokemonListViewController()
             

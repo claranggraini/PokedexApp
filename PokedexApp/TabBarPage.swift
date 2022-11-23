@@ -7,13 +7,13 @@
 import UIKit
 
 enum TabBarPage {
-    case discover
+    case pokedex
     case myPokemon
 
     init?(index: Int) {
         switch index {
         case 0:
-            self = .discover
+            self = .pokedex
         case 1:
             self = .myPokemon
         default:
@@ -23,8 +23,8 @@ enum TabBarPage {
     
     func pageTitleValue() -> String {
         switch self {
-        case .discover:
-            return "Discover"
+        case .pokedex:
+            return "Pokedex"
         case .myPokemon:
             return "My Pokemon"
         }
@@ -32,7 +32,7 @@ enum TabBarPage {
 
     func pageOrderNumber() -> Int {
         switch self {
-        case .discover:
+        case .pokedex:
             return 0
         case .myPokemon:
             return 1
@@ -41,8 +41,8 @@ enum TabBarPage {
     
     func iconImage() -> String{
         switch self{
-        case .discover:
-            return "discover-icon"
+        case .pokedex:
+            return "pokedex-icon"
         case .myPokemon:
             return "myPokemon-icon"
         }
