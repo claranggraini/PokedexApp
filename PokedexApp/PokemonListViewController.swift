@@ -38,6 +38,7 @@ class PokemonListViewController: UIViewController {
     }()
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         self.view.backgroundColor = .systemBackground
         self.setupTableView()
@@ -61,7 +62,6 @@ class PokemonListViewController: UIViewController {
     private func setupBinders(){
         
         viewModel.pokemons.bind{ _ in
-            let pokemon = self.viewModel.pokemons.value as? [Pokemon]
             
             DispatchQueue.main.async { [weak self] in
                 self?.pokemonTableView.reloadData()

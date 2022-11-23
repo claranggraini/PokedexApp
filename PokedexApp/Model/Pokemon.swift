@@ -21,8 +21,9 @@ struct Pokemon{
     let types: [PokemonType]?
     let height: Int?
     let weight: Int?
+    var wasCaught: Bool?
     
-    init(id: Int?, name: String?, sprite: UIImage?, stats: [Stat]?, moves: [Move]?, types: [PokemonType]?, height: Int?, weight: Int?) {
+    init(id: Int?, name: String?, sprite: UIImage?, stats: [Stat]?, moves: [Move]?, types: [PokemonType]?, height: Int?, weight: Int?, wasCaught: Bool) {
         
         self.id = id ?? 0
         self.name = name ?? "Pokemon Name"
@@ -32,6 +33,7 @@ struct Pokemon{
         self.types = types ?? []
         self.height = height ?? 0
         self.weight = weight ?? 0
+        self.wasCaught = wasCaught
     }
     
     init(){
@@ -43,6 +45,7 @@ struct Pokemon{
         self.types = []
         self.height = 0
         self.weight = 0
+        self.wasCaught = false
     }
 }
 

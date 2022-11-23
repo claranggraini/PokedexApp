@@ -35,19 +35,19 @@ final class CoreDataManager{
         }
     }
     
-    func getAllMyPokemon() -> [Pokemon]{
-        var pokemons:[Pokemon] = []
-        let request: NSFetchRequest<PokemonEntity> = PokemonEntity.fetchRequest()
-        do{
-            let result = try managedContext.fetch(request)
-            for poke in result{
-                pokemons.append(PokemonMapper.mapPokemonCoreEntityToModel(entity: poke))
-            }
-            return pokemons
-        }catch{
-            return []
-        }
-    }
+//    func getAllMyPokemon() -> [Pokemon]{
+//        var pokemons:[Pokemon] = []
+//        let request: NSFetchRequest<PokemonEntity> = PokemonEntity.fetchRequest()
+//        do{
+//            let result = try managedContext.fetch(request)
+//            for poke in result{
+//                pokemons.append(PokemonMapper.mapPokemonCoreEntityToModel(entity: poke))
+//            }
+//            return pokemons
+//        }catch{
+//            return []
+//        }
+//    }
     
     func getAllMyPokemonEntity() -> [PokemonEntity]{
         let request: NSFetchRequest<PokemonEntity> = PokemonEntity.fetchRequest()
@@ -62,7 +62,7 @@ final class CoreDataManager{
     }
     
     func addPokemon(pokemon: Pokemon){
-        let pokemonCount = getAllMyPokemon().count
+        let pokemonCount = getAllMyPokemonEntity().count
         let myPokemon = PokemonEntity(context: managedContext)
        
         var index = 0
@@ -86,7 +86,7 @@ final class CoreDataManager{
         myPokemon.weight = Int32(pokemon.weight ?? 0)
         myPokemon.height = Int32(pokemon.height ?? 0)
         myPokemon.color = ""
-        
+        myPokemon.pokedexID = Int32(pokemon.id ?? 0)
         
         saveContext()
     }
@@ -94,6 +94,27 @@ final class CoreDataManager{
     func deletePokemon(pokemonEntity: PokemonEntity){
         managedContext.delete(pokemonEntity)
         saveContext()
+    }
+    
+    func deleteAllData()
+    {
+        let entity = "Pokemons"
+        let appDelegate = AppDelegate.sharedAppDelegate
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
+        fetchRequest.returnsObjectsAsFaults = false
+
+        do
+        {
+            let results = try managedContext.fetch(fetchRequest)
+            for managedObject in results
+            {
+                let managedObjectData:NSManagedObject = managedObject as! NSManagedObject
+                managedContext.delete(managedObjectData)
+            }
+        } catch let error as NSError {
+            print("Detele all data in \(entity) error : \(error) \(error.userInfo)")
+        }
     }
     
 }

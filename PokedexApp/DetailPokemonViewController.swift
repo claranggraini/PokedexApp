@@ -21,8 +21,7 @@ class DetailPokemonViewController: UIViewController {
     let bioView: PokemonBioView = {
         let bView = PokemonBioView()
         bView.clipsToBounds = true
-        bView.backgroundColor = .lightGray
-        bView.layer.opacity = 2
+        bView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.5)
         bView.translatesAutoresizingMaskIntoConstraints = false
         return bView
     }()
@@ -33,7 +32,6 @@ class DetailPokemonViewController: UIViewController {
         btn.backgroundColor = .blue
         btn.tintColor = .black
         btn.setTitle("CATCH", for: .normal)
-        btn.imageView?.image = UIImage(systemName: "circle.fill")
    
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
@@ -49,7 +47,7 @@ class DetailPokemonViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.prefersLargeTitles = true
-        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Catch", style: .plain, target: self, action: #selector(catchPokemon))
         self.title = (viewModel.pokemon.value as? Pokemon)?.name?.capitalized ?? "Detail Pokemon"
         self.view.backgroundColor = .systemBackground
         self.setupBinders()
@@ -116,7 +114,6 @@ class DetailPokemonViewController: UIViewController {
             self?.pokemonIV.image = pokemon?.sprite
             self?.bioView.pokemon = pokemon
         }
-  
     }
     
 }

@@ -18,7 +18,7 @@ final class PokemonMapper{
         }
     }
     
-    static func mapPokemonResponsesToModel(input pokemonResponse: PokemonResponse, pokemonSprite: UIImage) -> Pokemon{
+    static func mapPokemonResponsesToModel(input pokemonResponse: PokemonResponse, pokemonSprite: UIImage, caughtPokemon: [PokemonEntity]) -> Pokemon{
         var pokemonStat = Array<Stat>()
         var pokemonMoves = Array<Move>()
         var pokemonTypes = Array<PokemonType>()
@@ -49,24 +49,21 @@ final class PokemonMapper{
             pokemonMoves.append(Move(name: pokemonMove.move?.name, levelLearnedAt: pokemonMove.versionDetails?.first?.levelLearnedAt))
         }
         
-        return Pokemon(id: pokemonResponse.id, name: pokemonResponse.name, sprite: pokemonSprite, stats: pokemonStat, moves: pokemonMoves, types: pokemonTypes,height: pokemonResponse.height, weight: pokemonResponse.weight)
+        let caught = checkIfPokemonWasCaught(caughtPokemon: caughtPokemon, id: pokemonResponse.id ?? 0)
         
+        return Pokemon(id: pokemonResponse.id, name: pokemonResponse.name, sprite: pokemonSprite, stats: pokemonStat, moves: pokemonMoves, types: pokemonTypes,height: pokemonResponse.height, weight: pokemonResponse.weight, wasCaught: caught)
     }
     
-    static func mapPokemonCoreEntityToModel(entity: PokemonEntity) -> Pokemon{
-        
-        guard let decodedData = Data(base64Encoded: entity.sprite ?? "") else {return Pokemon()}
-        var pokeType = Array<PokemonType>()
-        
-        if let pTypes = entity.pokemonType{
-            for type in pTypes {
-                pokeType.append(PokemonType(name: type))
-            }
+    static func checkIfPokemonWasCaught(caughtPokemon: [PokemonEntity], id: Int) -> Bool{
+       
+        if caughtPokemon.first(where: {
+            $0.pokedexID == id
+        }) != nil{
+            return true
         }
         
-        return Pokemon(id: entity.id.convertToInt(), name: entity.name, sprite: UIImage(data: decodedData), stats: [], moves: [], types: pokeType, height: entity.height.convertToInt(), weight: entity.weight.convertToInt())
+        return false
     }
-    
 }
 
 extension Int32{

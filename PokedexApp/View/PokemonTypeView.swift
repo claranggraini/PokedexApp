@@ -7,28 +7,6 @@
 
 import UIKit
 
-//enum PokemonType: String{
-//    case normal
-//    case fire
-//    case water
-//    case grass
-//    case electric
-//    case ice
-//    case fighting
-//    case poison
-//    case ground
-//    case flying
-//    case psychic
-//    case bug
-//    case rock
-//    case ghost
-//    case dark
-//    case dragon
-//    case steel
-//    case fairy
-//
-//}
-
 enum TypeSize{
     case small
     case big
@@ -61,6 +39,7 @@ class PokemonTypeView: UIView {
         lbl.text = "Poke Type"
         lbl.setContentHuggingPriority(.required, for: .horizontal)
         lbl.setContentCompressionResistancePriority(.required, for: .horizontal)
+        lbl.textAlignment = .center
         lbl.textColor = .white
         lbl.clipsToBounds = true
         lbl.sizeToFit()

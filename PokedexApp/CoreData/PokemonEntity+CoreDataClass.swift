@@ -2,7 +2,7 @@
 //  PokemonEntity+CoreDataClass.swift
 //  PokedexApp
 //
-//  Created by Clara Anggraini on 23/11/22.
+//  Created by Clara Anggraini on 24/11/22.
 //
 //
 

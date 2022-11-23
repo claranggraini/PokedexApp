@@ -18,7 +18,6 @@ class MyPokemonCollectionViewCell: UICollectionViewCell {
                 pokemonIV.image = UIImage(data: decodedData)
             }
             
-           
             if let unwrappedPokeType = pokemonEntity?.pokemonType, let typeCount = pokemonEntity?.pokemonType?.count, typeCount != 0{
                 for i in 0..<typeCount{
                     switch i{
@@ -27,10 +26,9 @@ class MyPokemonCollectionViewCell: UICollectionViewCell {
                         
                         typeBgView.isHidden = false
                     case 1:
-                        
-                            typeBgView2.pokemonType = PokemonType(name: unwrappedPokeType[i])
-                        
-                            typeBgView2.isHidden = false
+                        typeBgView2.pokemonType = PokemonType(name: unwrappedPokeType[i])
+                    
+                        typeBgView2.isHidden = false
                     case 2:
                         typeBgView3.pokemonType = PokemonType(name: unwrappedPokeType[i])
                         
@@ -56,7 +54,7 @@ class MyPokemonCollectionViewCell: UICollectionViewCell {
     let nameLbl: UILabel = {
        let lbl = UILabel()
         lbl.text = "Poke Name"
-        lbl.font = UIFont.systemFont(ofSize: 13, weight: .bold)
+        lbl.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         lbl.sizeToFit()
         lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl

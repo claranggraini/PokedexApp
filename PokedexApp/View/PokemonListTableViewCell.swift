@@ -17,6 +17,10 @@ class PokemonListTableViewCell: UITableViewCell {
             let idString = String(format: "%03d", pokemon?.id ?? 0)
             pokemonIdLabel.text = "#\(idString)"
             pokemonNameLabel.text = pokemon?.name?.capitalized ?? "PokemonName"
+            
+            if pokemon?.wasCaught ?? false{
+                pokeballIV.isHidden = false
+            }
         }
     }
     
@@ -48,9 +52,11 @@ class PokemonListTableViewCell: UITableViewCell {
     
     var pokeballIV: UIImageView = {
         var iv = UIImageView()
-        iv.backgroundColor = .red
+        iv.image = UIImage(systemName: "circle.fill")
+        iv.tintColor = .red
         iv.clipsToBounds = true
         iv.translatesAutoresizingMaskIntoConstraints = false
+        iv.isHidden = true
         return iv
     }()
     

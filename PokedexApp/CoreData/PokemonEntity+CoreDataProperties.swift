@@ -2,7 +2,7 @@
 //  PokemonEntity+CoreDataProperties.swift
 //  PokedexApp
 //
-//  Created by Clara Anggraini on 23/11/22.
+//  Created by Clara Anggraini on 24/11/22.
 //
 //
 
@@ -23,6 +23,7 @@ extension PokemonEntity {
     @NSManaged public var pokemonType: [String]?
     @NSManaged public var sprite: String?
     @NSManaged public var weight: Int32
+    @NSManaged public var pokedexID: Int32
 
 }
 
