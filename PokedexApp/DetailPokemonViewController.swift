@@ -100,9 +100,11 @@ class DetailPokemonViewController: UIViewController {
         }
         if randomBool{
             print("Clara has caught \(pokemon.name ?? "Pokemon Name")")
+            viewModel.saveCaughtPokemon(pokemon: pokemon)
         }else{
             print("\(pokemon.name ?? "Pokemon Name") Got Away")
         }
+        
     }
     
     private func setupBinders(){
@@ -113,7 +115,6 @@ class DetailPokemonViewController: UIViewController {
             self?.bioView.pokemon = pokemon
         }
   
-        
     }
     
 }

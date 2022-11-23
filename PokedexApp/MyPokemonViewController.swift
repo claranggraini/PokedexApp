@@ -9,6 +9,7 @@ import UIKit
 
 class MyPokemonViewController: UIViewController {
 
+    let viewModel = MyPokemonViewModel()
     
     lazy var pokemonCV: UICollectionView = {
         let cv = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout.init())
@@ -19,12 +20,14 @@ class MyPokemonViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .systemBackground
+        setupBinders()
         self.setupCollectionView()
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.tabBarController?.navigationItem.title = "My Pokemon"
+        viewModel.fetchPokemonData()
     }
     
     func setupCollectionView(){
@@ -43,16 +46,40 @@ class MyPokemonViewController: UIViewController {
         
         pokemonCV.register(MyPokemonCollectionViewCell.self, forCellWithReuseIdentifier: MyPokemonCollectionViewCell.identifier)
     }
+    
+    private func setupBinders(){
+        
+        viewModel.pokemonEntity.bind{ _ in
+            
+//            DispatchQueue.main.async { [weak self] in
+                self.pokemonCV.reloadData()
+//            }
+        }
+        
+//        viewModel.errorAlert.bind{ [weak self] errorAlert in
+//            DispatchQueue.main.async {
+//                if let showAlert = errorAlert{
+//                    self?.showErrorAlert(error: showAlert ?? "")
+//                }
+//            }
+//
+//        }
+        
+    }
 }
 
 extension MyPokemonViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 25
+        guard let data = viewModel.pokemonEntity.value as? [PokemonEntity] else {return 0}
+        return data.count
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = pokemonCV.dequeueReusableCell(withReuseIdentifier: MyPokemonCollectionViewCell.identifier, for: indexPath) as? MyPokemonCollectionViewCell else {return UICollectionViewCell()}
+        guard let unwrappedEntities = viewModel.pokemonEntity.value as? [PokemonEntity] else {return UICollectionViewCell()}
+        cell.pokemonEntity = unwrappedEntities[indexPath.row]
         
         return cell
     }

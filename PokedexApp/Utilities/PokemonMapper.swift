@@ -52,4 +52,26 @@ final class PokemonMapper{
         return Pokemon(id: pokemonResponse.id, name: pokemonResponse.name, sprite: pokemonSprite, stats: pokemonStat, moves: pokemonMoves, types: pokemonTypes,height: pokemonResponse.height, weight: pokemonResponse.weight)
         
     }
+    
+    static func mapPokemonCoreEntityToModel(entity: PokemonEntity) -> Pokemon{
+        
+        guard let decodedData = Data(base64Encoded: entity.sprite ?? "") else {return Pokemon()}
+        var pokeType = Array<PokemonType>()
+        
+        if let pTypes = entity.pokemonType{
+            for type in pTypes {
+                pokeType.append(PokemonType(name: type))
+            }
+        }
+        
+        return Pokemon(id: entity.id.convertToInt(), name: entity.name, sprite: UIImage(data: decodedData), stats: [], moves: [], types: pokeType, height: entity.height.convertToInt(), weight: entity.weight.convertToInt())
+    }
+    
+}
+
+extension Int32{
+    func convertToInt() -> Int{
+        let num32 = self
+        return Int(num32)
+    }
 }

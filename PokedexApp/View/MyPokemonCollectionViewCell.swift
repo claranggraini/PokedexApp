@@ -10,19 +10,23 @@ import UIKit
 class MyPokemonCollectionViewCell: UICollectionViewCell {
     static var identifier: String = "myPokemonCell"
 
-    var pokemon: Pokemon?{
+    var pokemonEntity: PokemonEntity?{
         didSet{
+            nameLbl.text = pokemonEntity?.name?.capitalized
+            if let decodedData = Data(base64Encoded: pokemonEntity?.sprite ?? "") {
+                pokemonIV.image = UIImage(data: decodedData)
+            }
             
-            if let unwrappedPokeType = pokemon?.types?[0]{
-                typeBgView.pokemonType = unwrappedPokeType
+            if pokemonEntity?.pokemonType?.count == 1, let unwrappedPokeType = pokemonEntity?.pokemonType?[0]{
+                typeBgView.pokemonType = PokemonType(name: unwrappedPokeType)
                 typeBgView.isHidden = false
             }
-            if let unwrappedPokeType = pokemon?.types?[1]{
-                typeBgView2.pokemonType = unwrappedPokeType
+            if pokemonEntity?.pokemonType?.count == 2, let unwrappedPokeType = pokemonEntity?.pokemonType?[1]{
+                typeBgView2.pokemonType = PokemonType(name: unwrappedPokeType)
                 typeBgView2.isHidden = false
             }
-            if let unwrappedPokeType = pokemon?.types?[2]{
-                typeBgView3.pokemonType = unwrappedPokeType
+            if pokemonEntity?.pokemonType?.count == 3, let unwrappedPokeType = pokemonEntity?.pokemonType?[2]{
+                typeBgView3.pokemonType = PokemonType(name: unwrappedPokeType)
                 typeBgView3.isHidden = false
             }
             
@@ -73,6 +77,14 @@ class MyPokemonCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
+    let containerView: UIView = {
+       let v = UIView()
+        v.translatesAutoresizingMaskIntoConstraints = false
+        v.clipsToBounds = true
+        v.backgroundColor = .white
+        return v
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -85,22 +97,21 @@ class MyPokemonCollectionViewCell: UICollectionViewCell {
         
         self.contentView.layer.cornerRadius = 10
         self.contentView.layer.shadowColor = UIColor.black.cgColor
-        self.contentView.layer.shadowOpacity = 1
-        self.contentView.layer.shadowOffset = .zero
-        self.contentView.layer.shadowRadius = 5
+        self.contentView.layer.shadowOpacity = 0.4
+        self.contentView.layer.shadowOffset = CGSize(width: 4, height: 4)
+        self.contentView.layer.shadowRadius = 3
         self.contentView.layer.masksToBounds = false
-        self.contentView.layer.backgroundColor = UIColor.blue.cgColor
+        self.contentView.layer.backgroundColor = UIColor.white.cgColor
         
         NSLayoutConstraint.activate([
-            pokemonIV.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor),
-            pokemonIV.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 16),
-            pokemonIV.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -16),
+            pokemonIV.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -4),
+            pokemonIV.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 24),
+            pokemonIV.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -24),
             pokemonIV.widthAnchor.constraint(equalToConstant: self.contentView.frame.width / 2),
-            pokemonIV.heightAnchor.constraint(equalToConstant: self.contentView.frame.height-32),
             
             nameLbl.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 12),
             nameLbl.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 24),
-            nameLbl.trailingAnchor.constraint(equalTo: pokemonIV.leadingAnchor, constant: 0),
+            nameLbl.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: 0),
             
             typeBgView.topAnchor.constraint(equalTo: nameLbl.bottomAnchor, constant: 16),
             typeBgView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor,constant: 12),

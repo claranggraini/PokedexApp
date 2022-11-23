@@ -7,8 +7,6 @@
 
 import Foundation
 
-import UIKit
-
 final class DetailPokemonViewModel{
     var pokemon: ObservableObject<Pokemon?> = ObservableObject(nil)
     var errorAlert: ObservableObject<String?> = ObservableObject(nil)
@@ -21,7 +19,7 @@ final class DetailPokemonViewModel{
         self.pokemon.value = pokemon
     }
     
-    func saveCaughtPokemon(){
-        
+    func saveCaughtPokemon(pokemon: Pokemon){
+        AppDelegate.sharedAppDelegate.coreDataManager.addPokemon(pokemon: pokemon)
     }
 }
