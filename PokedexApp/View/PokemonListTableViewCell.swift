@@ -27,7 +27,6 @@ class PokemonListTableViewCell: UITableViewCell {
     var pokemonIV: UIImageView = {
         var iv = UIImageView()
         iv.clipsToBounds = true
-        
         iv.translatesAutoresizingMaskIntoConstraints = false
         return iv
     }()
@@ -52,7 +51,7 @@ class PokemonListTableViewCell: UITableViewCell {
     
     var pokeballIV: UIImageView = {
         var iv = UIImageView()
-        iv.image = UIImage(systemName: "circle.fill")
+        iv.image = UIImage(named: "myPokemon-icon")
         iv.tintColor = .red
         iv.clipsToBounds = true
         iv.translatesAutoresizingMaskIntoConstraints = false

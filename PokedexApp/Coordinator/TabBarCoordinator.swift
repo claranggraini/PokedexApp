@@ -64,8 +64,9 @@ class TabCoordinator: NSObject, Coordinator {
       
     private func getTabController(_ page: TabBarPage) -> UINavigationController {
         let navController = UINavigationController()
+        
         navController.tabBarItem = UITabBarItem.init(title: page.pageTitleValue(),
-                                                     image: nil,
+                                                     image: UIImage(systemName: page.iconImage()),
                                                      tag: page.pageOrderNumber())
 
         switch page {

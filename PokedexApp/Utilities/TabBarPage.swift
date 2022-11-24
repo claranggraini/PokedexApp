@@ -42,9 +42,9 @@ enum TabBarPage {
     func iconImage() -> String{
         switch self{
         case .pokedex:
-            return "pokedex-icon"
+            return "ipad"
         case .myPokemon:
-            return "myPokemon-icon"
+            return "briefcase.fill"
         }
     }
 }

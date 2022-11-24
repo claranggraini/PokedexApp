@@ -7,12 +7,11 @@
 
 import UIKit
 
-// Define what type of flows can be started from this Coordinator
+
 protocol AppCoordinatorProtocol: Coordinator {
     func showMainFlow()
 }
 
-// App coordinator is the only one coordinator which will exist during app's life cycle
 class AppCoordinator: AppCoordinatorProtocol {
     weak var finishDelegate: CoordinatorFinishDelegate? = nil
     
