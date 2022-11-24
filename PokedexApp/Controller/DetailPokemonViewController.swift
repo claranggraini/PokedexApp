@@ -21,7 +21,7 @@ class DetailPokemonViewController: UIViewController {
     let bioView: PokemonBioView = {
         let bView = PokemonBioView()
         bView.clipsToBounds = true
-        bView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.5)
+        bView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
         bView.translatesAutoresizingMaskIntoConstraints = false
         return bView
     }()

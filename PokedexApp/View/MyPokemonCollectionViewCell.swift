@@ -126,7 +126,7 @@ class MyPokemonCollectionViewCell: UICollectionViewCell {
             pokemonIV.widthAnchor.constraint(equalToConstant: self.contentView.frame.width / 2),
             
             nameLbl.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 12),
-            nameLbl.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 24),
+            nameLbl.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 16),
             nameLbl.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: 0),
             
             typeBgView.topAnchor.constraint(equalTo: nameLbl.bottomAnchor, constant: 16),
@@ -151,7 +151,6 @@ class MyPokemonCollectionViewCell: UICollectionViewCell {
     }
     
     @objc func deletePoke(){
-        print("delete poke from cell")
         deletePokemon?()
     }
     

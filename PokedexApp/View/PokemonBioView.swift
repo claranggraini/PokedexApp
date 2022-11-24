@@ -41,9 +41,7 @@ class PokemonBioView: UIView {
                         }
                     }
                 }
-                    
-                
-                
+                 
             }
         }
     }
@@ -118,12 +116,6 @@ class PokemonBioView: UIView {
         self.addSubview(typeBgView2)
 
         self.addSubview(typeBgView3)
-//        self.stackView.addArrangedSubview(typeBgView)
-
-//        self.stackView.addArrangedSubview(typeBgView2)
-//
-//        self.stackView.addArrangedSubview(typeBgView3)
-//        self.addSubview(stackView)
         
         NSLayoutConstraint.activate([
             idLbl.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),

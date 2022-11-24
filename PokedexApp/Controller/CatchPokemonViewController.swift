@@ -50,7 +50,7 @@ class CatchPokemonViewController: UIViewController {
     let submitBtn: UIButton = {
         let btn = UIButton()
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        btn.backgroundColor = .black
+        btn.backgroundColor = .systemBlue
         btn.setTitle("OK", for: .normal)
         btn.layer.cornerRadius = 12
         
