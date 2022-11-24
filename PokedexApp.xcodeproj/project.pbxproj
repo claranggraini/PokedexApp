@@ -38,6 +38,8 @@
 		78A8FF11292E88E80033F0F4 /* MyPokemonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A8FF10292E88E80033F0F4 /* MyPokemonViewModel.swift */; };
 		78A8FF14292EBAFB0033F0F4 /* PokemonEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A8FF12292EBAFB0033F0F4 /* PokemonEntity+CoreDataClass.swift */; };
 		78A8FF15292EBAFB0033F0F4 /* PokemonEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A8FF13292EBAFB0033F0F4 /* PokemonEntity+CoreDataProperties.swift */; };
+		78A8FF17292ED4DE0033F0F4 /* CatchPokemonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A8FF16292ED4DE0033F0F4 /* CatchPokemonViewController.swift */; };
+		78A8FF19292EDC190033F0F4 /* CatchPokemonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A8FF18292EDC190033F0F4 /* CatchPokemonViewModel.swift */; };
 		78BAD0B5292E5E5000970E6D /* DetailPokemonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BAD0B4292E5E5000970E6D /* DetailPokemonViewModel.swift */; };
 		78BAD0B8292E606E00970E6D /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BAD0B7292E606E00970E6D /* CoreDataManager.swift */; };
 /* End PBXBuildFile section */
@@ -76,6 +78,8 @@
 		78A8FF10292E88E80033F0F4 /* MyPokemonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPokemonViewModel.swift; sourceTree = "<group>"; };
 		78A8FF12292EBAFB0033F0F4 /* PokemonEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PokemonEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		78A8FF13292EBAFB0033F0F4 /* PokemonEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PokemonEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		78A8FF16292ED4DE0033F0F4 /* CatchPokemonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchPokemonViewController.swift; sourceTree = "<group>"; };
+		78A8FF18292EDC190033F0F4 /* CatchPokemonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchPokemonViewModel.swift; sourceTree = "<group>"; };
 		78BAD0B4292E5E5000970E6D /* DetailPokemonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPokemonViewModel.swift; sourceTree = "<group>"; };
 		78BAD0B7292E606E00970E6D /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -120,6 +124,7 @@
 				7823A8BC292B761900E6510B /* AppDelegate.swift */,
 				7823A8BE292B761900E6510B /* SceneDelegate.swift */,
 				7823A8C0292B761900E6510B /* PokemonListViewController.swift */,
+				78A8FF16292ED4DE0033F0F4 /* CatchPokemonViewController.swift */,
 				7823A8C2292B761900E6510B /* Main.storyboard */,
 				7823A8C5292B761B00E6510B /* Assets.xcassets */,
 				7823A8C7292B761B00E6510B /* LaunchScreen.storyboard */,
@@ -180,6 +185,7 @@
 				78369504292CB4C500D7595E /* ObservableObject.swift */,
 				78BAD0B4292E5E5000970E6D /* DetailPokemonViewModel.swift */,
 				78A8FF10292E88E80033F0F4 /* MyPokemonViewModel.swift */,
+				78A8FF18292EDC190033F0F4 /* CatchPokemonViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -276,6 +282,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				789A7A3F292C89A300F18191 /* PokemonEndpoint.swift in Sources */,
+				78A8FF17292ED4DE0033F0F4 /* CatchPokemonViewController.swift in Sources */,
 				789A7A39292C88CE00F18191 /* NetworkService.swift in Sources */,
 				78369505292CB4C500D7595E /* ObservableObject.swift in Sources */,
 				7823A8DB292BD3AC00E6510B /* MyPokemonViewController.swift in Sources */,
@@ -304,6 +311,7 @@
 				7823A8DD292BD7AD00E6510B /* DetailPokemonViewController.swift in Sources */,
 				789A7A3B292C88F400F18191 /* NetworkError.swift in Sources */,
 				7823A8BD292B761900E6510B /* AppDelegate.swift in Sources */,
+				78A8FF19292EDC190033F0F4 /* CatchPokemonViewModel.swift in Sources */,
 				7823A8BF292B761900E6510B /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

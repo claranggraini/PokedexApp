@@ -61,7 +61,7 @@ final class CoreDataManager{
         }
     }
     
-    func addPokemon(pokemon: Pokemon){
+    func addPokemon(pokemon: Pokemon, nickName: String){
         let pokemonCount = getAllMyPokemonEntity().count
         let myPokemon = PokemonEntity(context: managedContext)
        
@@ -71,7 +71,7 @@ final class CoreDataManager{
         }
 
         myPokemon.id = Int32(index+1)
-        myPokemon.name = pokemon.name ?? "Pokemon Name"
+        myPokemon.name = nickName
         
         var pokemonTypes: [String] = []
         

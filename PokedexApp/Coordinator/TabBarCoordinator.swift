@@ -57,7 +57,7 @@ class TabCoordinator: NSObject, Coordinator {
        
         tabBarController.tabBar.isTranslucent = false
         
-        tabBarController.tabBar.backgroundColor = .systemYellow
+        tabBarController.tabBar.backgroundColor = .systemBackground
         
         navigationController.viewControllers = [tabBarController]
     }

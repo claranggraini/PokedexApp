@@ -26,17 +26,6 @@ class DetailPokemonViewController: UIViewController {
         return bView
     }()
     
-    @objc let catchPokemonBtn: UIButton = {
-        let btn = UIButton()
-        btn.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        btn.backgroundColor = .blue
-        btn.tintColor = .black
-        btn.setTitle("CATCH", for: .normal)
-   
-        btn.translatesAutoresizingMaskIntoConstraints = false
-        return btn
-    }()
-    
     let movesTV: UITableView = {
        let tv = UITableView()
         
@@ -53,24 +42,19 @@ class DetailPokemonViewController: UIViewController {
         self.setupBinders()
         self.view.addSubview(pokemonIV)
         self.view.addSubview(bioView)
-        self.view.addSubview(catchPokemonBtn)
+        
         setupTableView()
         NSLayoutConstraint.activate([
             pokemonIV.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             pokemonIV.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 72),
             pokemonIV.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -72),
             pokemonIV.heightAnchor.constraint(equalToConstant: self.view.frame.height / 4),
-            
-            catchPokemonBtn.topAnchor.constraint(equalTo: pokemonIV.bottomAnchor, constant: 4),
-            catchPokemonBtn.widthAnchor.constraint(equalToConstant: 90),
-            catchPokemonBtn.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            bioView.topAnchor.constraint(equalTo: catchPokemonBtn.bottomAnchor, constant: 4),
+        
+            bioView.topAnchor.constraint(equalTo: pokemonIV.bottomAnchor, constant: 4),
             bioView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
             bioView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
             bioView.heightAnchor.constraint(equalToConstant: 176)
         ])
-        
-        catchPokemonBtn.addTarget(self, action: #selector(catchPokemon), for: .touchUpInside)
     }
     
     private func setupTableView(){
@@ -81,7 +65,7 @@ class DetailPokemonViewController: UIViewController {
             movesTV.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             movesTV.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             movesTV.topAnchor.constraint(equalTo: bioView.bottomAnchor, constant: 24),
-            movesTV.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -82)
+            movesTV.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
         movesTV.isScrollEnabled = true
@@ -91,19 +75,16 @@ class DetailPokemonViewController: UIViewController {
     }
     
     @objc private func catchPokemon(){
-        print("catching pokemon...")
-        let randomBool = Bool.random()
+        
         guard let pokemon = viewModel.pokemon.value as? Pokemon else{
             return
         }
         
-        if randomBool{
-            
-            print("Clara has caught \(pokemon.name ?? "Pokemon Name")")
-            viewModel.saveCaughtPokemon(pokemon: pokemon)
-        }else{
-            print("\(pokemon.name ?? "Pokemon Name") Got Away")
-        }
+        let catchPokemonVC = CatchPokemonViewController()
+        catchPokemonVC.viewModel.pokemon.value = pokemon
+        catchPokemonVC.modalPresentationStyle = .fullScreen
+        catchPokemonVC.navigationItem.setHidesBackButton(true, animated: true)
+        self.navigationController?.pushViewController(catchPokemonVC, animated: true)
         
     }
     
@@ -131,7 +112,7 @@ extension DetailPokemonViewController: UITableViewDelegate, UITableViewDataSourc
         guard let pokemonMoves = (viewModel.pokemon.value as? Pokemon)?.moves else {return UITableViewCell()}
         cell.selectionStyle = .none
         cell.accessoryType = .none
-        cell.textLabel?.text = pokemonMoves[indexPath.row].name
+        cell.textLabel?.text = pokemonMoves[indexPath.row].name?.replacingOccurrences(of: "-", with: " ").capitalized
         cell.detailTextLabel?.text = "Learned at lvl \(pokemonMoves[indexPath.row].levelLearnedAt ?? 0)"
 
         return cell
