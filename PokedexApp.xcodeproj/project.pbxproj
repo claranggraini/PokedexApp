@@ -114,6 +114,7 @@
 		7823A8BB292B761900E6510B /* PokedexApp */ = {
 			isa = PBXGroup;
 			children = (
+				78A8FF1A292EFE1F0033F0F4 /* Controller */,
 				78BAD0B6292E606400970E6D /* CoreData */,
 				7836950D292D113F00D7595E /* View */,
 				7836950A292CC3B500D7595E /* Utilities */,
@@ -123,15 +124,10 @@
 				789A7A32292C86EE00F18191 /* Networking */,
 				7823A8BC292B761900E6510B /* AppDelegate.swift */,
 				7823A8BE292B761900E6510B /* SceneDelegate.swift */,
-				7823A8C0292B761900E6510B /* PokemonListViewController.swift */,
-				78A8FF16292ED4DE0033F0F4 /* CatchPokemonViewController.swift */,
 				7823A8C2292B761900E6510B /* Main.storyboard */,
 				7823A8C5292B761B00E6510B /* Assets.xcassets */,
 				7823A8C7292B761B00E6510B /* LaunchScreen.storyboard */,
 				7823A8CA292B761B00E6510B /* Info.plist */,
-				7823A8D4292B839200E6510B /* TabBarPage.swift */,
-				7823A8DA292BD3AC00E6510B /* MyPokemonViewController.swift */,
-				7823A8DC292BD7AD00E6510B /* DetailPokemonViewController.swift */,
 				78A8FEBD292E6A760033F0F4 /* Pokemons.xcdatamodeld */,
 			);
 			path = PokedexApp;
@@ -140,6 +136,7 @@
 		7836950A292CC3B500D7595E /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				7823A8D4292B839200E6510B /* TabBarPage.swift */,
 				7836950B292CC3C900D7595E /* PokemonMapper.swift */,
 			);
 			path = Utilities;
@@ -198,6 +195,17 @@
 				78369506292CB6B700D7595E /* Pokemon.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		78A8FF1A292EFE1F0033F0F4 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				7823A8DC292BD7AD00E6510B /* DetailPokemonViewController.swift */,
+				7823A8DA292BD3AC00E6510B /* MyPokemonViewController.swift */,
+				78A8FF16292ED4DE0033F0F4 /* CatchPokemonViewController.swift */,
+				7823A8C0292B761900E6510B /* PokemonListViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		78BAD0B6292E606400970E6D /* CoreData */ = {

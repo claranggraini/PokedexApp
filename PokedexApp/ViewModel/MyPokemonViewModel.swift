@@ -19,4 +19,8 @@ final class MyPokemonViewModel{
         self.pokemonEntity.value = AppDelegate.sharedAppDelegate.coreDataManager.getAllMyPokemonEntity()
     }
     
+    func deletePokemonData(toBeDeletedPokemonEntity: PokemonEntity){
+        AppDelegate.sharedAppDelegate.coreDataManager.deletePokemon(pokemonEntity: toBeDeletedPokemonEntity)
+    }
+    
 }

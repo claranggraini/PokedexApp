@@ -9,7 +9,9 @@ import UIKit
 
 class MyPokemonCollectionViewCell: UICollectionViewCell {
     static var identifier: String = "myPokemonCell"
-
+    
+    var deletePokemon: (()->())?
+    
     var pokemonEntity: PokemonEntity?{
         didSet{
            
@@ -87,12 +89,13 @@ class MyPokemonCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
-    let containerView: UIView = {
-       let v = UIView()
-        v.translatesAutoresizingMaskIntoConstraints = false
-        v.clipsToBounds = true
-        v.backgroundColor = .white
-        return v
+    let deleteBtn: UIButton = {
+        let btn = UIButton()
+        btn.setBackgroundImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
+        btn.tintColor = .red
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.isHidden = true
+        return btn
     }()
     
     override init(frame: CGRect) {
@@ -104,6 +107,7 @@ class MyPokemonCollectionViewCell: UICollectionViewCell {
         self.contentView.addSubview(typeBgView)
         self.contentView.addSubview(typeBgView2)
         self.contentView.addSubview(typeBgView3)
+        self.contentView.addSubview(deleteBtn)
         
         self.contentView.layer.cornerRadius = 10
         self.contentView.layer.shadowColor = UIColor.black.cgColor
@@ -112,6 +116,8 @@ class MyPokemonCollectionViewCell: UICollectionViewCell {
         self.contentView.layer.shadowRadius = 3
         self.contentView.layer.masksToBounds = false
         self.contentView.layer.backgroundColor = UIColor.white.cgColor
+        
+        self.isUserInteractionEnabled = true
         
         NSLayoutConstraint.activate([
             pokemonIV.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -4),
@@ -129,12 +135,24 @@ class MyPokemonCollectionViewCell: UICollectionViewCell {
             typeBgView2.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor,constant: 12),
             typeBgView3.topAnchor.constraint(equalTo: typeBgView2.bottomAnchor, constant: 8),
             typeBgView3.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor,constant: 12),
-          
+            deleteBtn.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: -8),
+            deleteBtn.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor,constant: 8),
+            deleteBtn.heightAnchor.constraint(equalToConstant: 30),
+            deleteBtn.widthAnchor.constraint(equalToConstant: 30)
         ])
+        
+        deleteBtn.addTarget(self, action: #selector(deletePoke), for: .touchUpInside)
+        self.contentView.isUserInteractionEnabled = true
+        
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc func deletePoke(){
+        print("delete poke from cell")
+        deletePokemon?()
     }
     
 }
