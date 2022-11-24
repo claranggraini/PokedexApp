@@ -88,7 +88,6 @@ class CatchPokemonViewController: UIViewController {
             submitBtn.widthAnchor.constraint(equalToConstant: 132),
             submitBtn.heightAnchor.constraint(equalToConstant: 44)
             
-            
         ])
         
     }
@@ -97,8 +96,8 @@ class CatchPokemonViewController: UIViewController {
         
         viewModel.pokemon.bind({ [weak self] p in
             guard let unwrappedPokemon = p as? Pokemon else { return }
-            guard var catchResult = self?.viewModel.catchPokemon() else {return}
-           
+            guard let catchResult = self?.viewModel.catchPokemon() else {return}
+            self?.viewModel.catchResult.value = catchResult
             self?.pokemonIV.image = unwrappedPokemon.sprite
             
             if catchResult{
@@ -128,16 +127,25 @@ class CatchPokemonViewController: UIViewController {
     }
     
     @objc func didTapSubmit(){
-        let error = viewModel.checkNicknameMaxChar(nickname: nickNameTextField.text ?? "Pokemon Nickname")
+        let error = viewModel.checkNicknameMaxChar(nickname: nickNameTextField.text ?? "")
+        guard let catchResult = viewModel.catchResult.value as? Bool else { return }
+        
         if error{
             self.showErrorAlert()
+        }else if !catchResult{
+            self.navigationController?.popViewController(animated: true)
         }else{
-            guard let pokemon = self.viewModel.pokemon.value else {return}
-            guard let nicknameTF = self.nickNameTextField.text else { return }
-            
-            self.viewModel.saveCaughtPokemon(pokemon: pokemon ?? Pokemon(), nickName: nicknameTF)
+            guard let poke = self.viewModel.pokemon.value as? Pokemon else {return}
+            guard let nicknameTF = self.nickNameTextField.text else{ return }
+            var nickName = ""
+            if nicknameTF.isEmpty{
+                nickName = poke.name ?? ""
+            }
+            self.viewModel.saveCaughtPokemon(pokemon: poke, nickName: nickName)
             self.navigationController?.popViewController(animated: true)
         }
+        
+            
         
     }
 }

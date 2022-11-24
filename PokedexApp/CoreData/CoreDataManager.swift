@@ -61,7 +61,7 @@ final class CoreDataManager{
         }
     }
     
-    func addPokemon(pokemon: Pokemon, nickName: String){
+    func addPokemon(pokemon: Pokemon, nickName: String?){
         let pokemonCount = getAllMyPokemonEntity().count
         let myPokemon = PokemonEntity(context: managedContext)
        
@@ -71,7 +71,7 @@ final class CoreDataManager{
         }
 
         myPokemon.id = Int32(index+1)
-        myPokemon.name = nickName
+        myPokemon.name = nickName ?? pokemon.name
         
         var pokemonTypes: [String] = []
         
@@ -99,7 +99,7 @@ final class CoreDataManager{
     func deleteAllData()
     {
         let entity = "Pokemons"
-        let appDelegate = AppDelegate.sharedAppDelegate
+//        let appDelegate = AppDelegate.sharedAppDelegate
         
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
         fetchRequest.returnsObjectsAsFaults = false
@@ -113,7 +113,7 @@ final class CoreDataManager{
                 managedContext.delete(managedObjectData)
             }
         } catch let error as NSError {
-            print("Detele all data in \(entity) error : \(error) \(error.userInfo)")
+            print("Delete all data in \(entity) error : \(error) \(error.userInfo)")
         }
     }
     
