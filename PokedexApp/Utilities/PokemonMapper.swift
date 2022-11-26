@@ -18,7 +18,7 @@ final class PokemonMapper{
         }
     }
     
-    static func mapPokemonResponsesToModel(input pokemonResponse: PokemonResponse, pokemonSprite: UIImage, caughtPokemon: [PokemonEntity]) -> Pokemon{
+    static func mapPokemonResponsesToModel(input pokemonResponse: PokemonResponse, pokemonSprite: UIImage, caughtPokemonsId: [Int]) -> Pokemon{
         var pokemonStat = Array<Stat>()
         var pokemonMoves = Array<Move>()
         var pokemonTypes = Array<PokemonType>()
@@ -49,15 +49,15 @@ final class PokemonMapper{
             pokemonMoves.append(Move(name: pokemonMove.move?.name, levelLearnedAt: pokemonMove.versionDetails?.first?.levelLearnedAt))
         }
         
-        let caught = checkIfPokemonWasCaught(caughtPokemon: caughtPokemon, id: pokemonResponse.id ?? 0)
+        let caught = checkIfPokemonWasCaught(caughtPokemonsId: caughtPokemonsId, id: pokemonResponse.id ?? 0)
         
         return Pokemon(id: pokemonResponse.id, name: pokemonResponse.name, sprite: pokemonSprite, stats: pokemonStat, moves: pokemonMoves, types: pokemonTypes,height: pokemonResponse.height, weight: pokemonResponse.weight, wasCaught: caught)
     }
     
-    static func checkIfPokemonWasCaught(caughtPokemon: [PokemonEntity], id: Int) -> Bool{
-       
-        if caughtPokemon.first(where: {
-            $0.pokedexID == id
+    static func checkIfPokemonWasCaught(caughtPokemonsId: [Int], id: Int) -> Bool{
+
+        if caughtPokemonsId.first(where: {
+            $0 == id
         }) != nil{
             return true
         }

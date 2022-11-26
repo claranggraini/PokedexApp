@@ -10,7 +10,7 @@ import Foundation
 final class CatchPokemonViewModel{
     var pokemon: ObservableObject<Pokemon?> = ObservableObject(nil)
     var catchResult: ObservableObject<Bool?> = ObservableObject(nil)
-    
+    private lazy var userDefaults = UserDefaults.standard
     init() {
         
     }
@@ -23,6 +23,10 @@ final class CatchPokemonViewModel{
     
     func saveCaughtPokemon(pokemon: Pokemon, nickName: String){
         AppDelegate.sharedAppDelegate.coreDataManager.addPokemon(pokemon: pokemon, nickName: nickName)
+       
+        var caughtPokemonArr = userDefaults.object(forKey: "caughtPokemon") as? [Int] ?? []
+        caughtPokemonArr.append(pokemon.id ?? 0)
+        userDefaults.set(caughtPokemonArr, forKey: "caughtPokemon")
     }
     
     func checkNicknameMaxChar(nickname: String)->Bool{

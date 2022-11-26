@@ -12,7 +12,7 @@ final class PokemonListViewModel{
     var pokemons: ObservableObject<[Pokemon]?> = ObservableObject(nil)
     private var pokemonList: [PokemonList] = []
     private var pokemonDetailList: [Pokemon] = []
-    private var caughtPokemon: [PokemonEntity] = []
+    private var caughtPokemonsId: [Int] = []
     var isLoading: ObservableObject<Bool?> = ObservableObject(nil)
     var errorAlert: ObservableObject<String?> = ObservableObject(nil)
     
@@ -40,10 +40,8 @@ final class PokemonListViewModel{
     }
    
     func fetchPokemonDetailData() async{
-        DispatchQueue.main.async { [weak self] in
-            self?.caughtPokemon = AppDelegate.sharedAppDelegate.coreDataManager.getAllMyPokemonEntity()
-        }
         
+        self.caughtPokemonsId = UserDefaults.standard.object(forKey: "caughtPokemon") as? [Int] ?? []
         
         for pr in pokemonList{
             let result = await networkService.request(to: PokemonEndpoint.getPokemonDetail(name: pr.name), decodeTo: PokemonResponse.self)
@@ -52,7 +50,7 @@ final class PokemonListViewModel{
                 
             case .success(let response):
                 let pokemonSprite = await fetchPokemonSprite(url: response.sprites?.other?.officialArtwork?.frontDefault?.absoluteString ?? "")
-                pokemonDetailList.append(PokemonMapper.mapPokemonResponsesToModel(input: response, pokemonSprite: pokemonSprite, caughtPokemon: caughtPokemon))
+                pokemonDetailList.append(PokemonMapper.mapPokemonResponsesToModel(input: response, pokemonSprite: pokemonSprite, caughtPokemonsId: caughtPokemonsId))
                 
             case .failure(let error):
                 errorAlert.value = error.localizedDescription
