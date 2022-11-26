@@ -40,7 +40,7 @@ final class PokemonListViewModel{
     }
    
     func fetchPokemonDetailData() async{
-        DispatchQueue.main.sync { [weak self] in
+        DispatchQueue.main.async { [weak self] in
             self?.caughtPokemon = AppDelegate.sharedAppDelegate.coreDataManager.getAllMyPokemonEntity()
         }
         

@@ -154,4 +154,10 @@ class MyPokemonCollectionViewCell: UICollectionViewCell {
         deletePokemon?()
     }
     
+    override func prepareForReuse() {
+        self.typeBgView.isHidden = true
+        self.typeBgView2.isHidden = true
+        self.typeBgView3.isHidden = true
+    }
+    
 }
