@@ -11,7 +11,7 @@ class PokemonListViewController: UIViewController {
     
     var didSendEventClosure: ((PokemonListViewController.Event,
                               Pokemon) -> Void)?
-    let viewModel = PokemonListViewModel()
+    var viewModel = PokemonListViewModel()
     var loadingIndicator: UIView?
     
     let pokemonTableView: UITableView = {
@@ -22,8 +22,8 @@ class PokemonListViewController: UIViewController {
     }()
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
+        
         self.view.backgroundColor = .systemBackground
         self.setupTableView()
         self.setupBinders()
@@ -36,7 +36,9 @@ class PokemonListViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.tabBarController?.navigationItem.title = "Pokedex"
+        self.title = "Pokedex"
+        self.viewModel.reloadPokemonListData()
+        self.pokemonTableView.reloadData()
     }
 
     deinit {

@@ -25,7 +25,9 @@ final class CatchPokemonViewModel{
         AppDelegate.sharedAppDelegate.coreDataManager.addPokemon(pokemon: pokemon, nickName: nickName)
        
         var caughtPokemonArr = userDefaults.object(forKey: "caughtPokemon") as? [Int] ?? []
-        caughtPokemonArr.append(pokemon.id ?? 0)
+        guard !caughtPokemonArr.contains(pokemon.id ?? -1) else {return}
+  
+        caughtPokemonArr.append(pokemon.id ?? -1)
         userDefaults.set(caughtPokemonArr, forKey: "caughtPokemon")
     }
     

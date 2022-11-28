@@ -9,7 +9,10 @@ import UIKit
 
 class DetailPokemonViewController: UIViewController {
     
-    let viewModel = DetailPokemonViewModel()
+    var viewModel: DetailPokemonViewModel = DetailPokemonViewModel()
+    
+    var didSendEventClosure: ((DetailPokemonViewController.Event,
+                              Pokemon) -> Void)?
     
     let pokemonIV: UIImageView = {
        let iv = UIImageView()
@@ -79,13 +82,7 @@ class DetailPokemonViewController: UIViewController {
         guard let pokemon = viewModel.pokemon.value as? Pokemon else{
             return
         }
-        
-        let catchPokemonVC = CatchPokemonViewController()
-        catchPokemonVC.viewModel.pokemon.value = pokemon
-        catchPokemonVC.modalPresentationStyle = .fullScreen
-        catchPokemonVC.navigationItem.setHidesBackButton(true, animated: true)
-        self.navigationController?.pushViewController(catchPokemonVC, animated: true)
-        
+        didSendEventClosure?(.succeedCaughtPokemon, pokemon)
     }
     
     private func setupBinders(){
@@ -129,5 +126,11 @@ extension DetailPokemonViewController: UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "Moves"
+    }
+}
+
+extension DetailPokemonViewController{
+    enum Event{
+        case succeedCaughtPokemon
     }
 }

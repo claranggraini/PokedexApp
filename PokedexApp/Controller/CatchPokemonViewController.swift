@@ -10,7 +10,10 @@ import UIKit
 
 class CatchPokemonViewController: UIViewController {
 
-    let viewModel = CatchPokemonViewModel()
+    var viewModel = CatchPokemonViewModel()
+    
+    var didSendEventClosure: ((CatchPokemonViewController.Event,
+                              Pokemon) -> Void)?
     
     let pokemonIV: UIImageView = {
        let iv = UIImageView()
@@ -142,10 +145,13 @@ class CatchPokemonViewController: UIViewController {
                 nickName = poke.name ?? ""
             }
             self.viewModel.saveCaughtPokemon(pokemon: poke, nickName: nickName)
-            self.navigationController?.popViewController(animated: true)
+            didSendEventClosure?(.didCatchPokemon, poke)
         }
-        
-            
-        
+    }
+}
+
+extension CatchPokemonViewController{
+    enum Event{
+        case didCatchPokemon
     }
 }

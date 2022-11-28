@@ -65,10 +65,3 @@ final class PokemonMapper{
         return false
     }
 }
-
-extension Int32{
-    func convertToInt() -> Int{
-        let num32 = self
-        return Int(num32)
-    }
-}

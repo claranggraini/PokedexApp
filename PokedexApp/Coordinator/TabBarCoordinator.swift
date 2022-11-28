@@ -15,6 +15,11 @@ protocol TabCoordinatorProtocol: Coordinator {
     func setSelectedIndex(_ index: Int)
     
     func currentPage() -> TabBarPage?
+    
+    func showPokemonList()
+    
+    func showMyPokemon()
+    
 }
 
 class TabCoordinator: NSObject, Coordinator {
@@ -64,30 +69,21 @@ class TabCoordinator: NSObject, Coordinator {
       
     private func getTabController(_ page: TabBarPage) -> UINavigationController {
         let navController = UINavigationController()
-        
+        navController.navigationBar.prefersLargeTitles = true
         navController.tabBarItem = UITabBarItem.init(title: page.pageTitleValue(),
                                                      image: UIImage(systemName: page.iconImage()),
                                                      tag: page.pageOrderNumber())
 
         switch page {
         case .pokedex:
+            let pokemonListCoordinator = PokemonListCoordinator(navController)
+            pokemonListCoordinator.start()
+            childCoordinators.append(pokemonListCoordinator)
             
-            let pokemonListVC = PokemonListViewController()
-            
-            pokemonListVC.didSendEventClosure = { [weak self] event, pokemon in
-                switch event {
-                case .detail:
-                    let detailVC = DetailPokemonViewController()
-                    detailVC.viewModel.fetchPokemonData(pokemon: pokemon)
-                    self?.navigationController.pushViewController(detailVC, animated: true)
-                }
-            }
-            
-            navController.pushViewController(pokemonListVC, animated: true)
         case .myPokemon:
-            let myPokemonVC = MyPokemonViewController()
-            navController.pushViewController(myPokemonVC, animated: true)
-            
+            let myPokemonCoordinator = MyPokemonCoordinator(navController)
+            myPokemonCoordinator.start()
+            childCoordinators.append(myPokemonCoordinator)
         }
         
         return navController

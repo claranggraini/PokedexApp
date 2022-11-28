@@ -26,7 +26,6 @@ protocol Coordinator: AnyObject {
 
 extension Coordinator {
     func finish() {
-        print("coordinate finish")
         childCoordinators.removeAll()
         finishDelegate?.coordinatorDidFinish(childCoordinator: self)
     }
@@ -37,5 +36,5 @@ protocol CoordinatorFinishDelegate: AnyObject {
 }
 
 enum CoordinatorType {
-    case app, tab
+    case app, tab, pokemonList, detailPokemon, catchPokemon, myPokemonCoor
 }

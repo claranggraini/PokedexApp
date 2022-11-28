@@ -73,4 +73,23 @@ final class PokemonListViewModel{
         return UIImage()
     }
     
+    func reloadPokemonListData(){
+        self.caughtPokemonsId = UserDefaults.standard.object(forKey: "caughtPokemon") as? [Int] ?? []
+        
+        guard var pokemons = self.pokemons.value as? [Pokemon] else { return }
+        
+        guard var updateCaughtPokemon = pokemons.first(where: {
+            guard let pokeID = $0.id else {return false}
+            return caughtPokemonsId.last == pokeID
+        }) else { return }
+        
+        updateCaughtPokemon.wasCaught = true
+        let idx = pokemons.firstIndex(where: {
+            $0.id == updateCaughtPokemon.id
+        }) ?? 0
+        
+        pokemons[idx] = updateCaughtPokemon
+        
+        self.pokemons.value = pokemons
+    }
 }

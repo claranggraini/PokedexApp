@@ -23,7 +23,7 @@ class AppCoordinator: AppCoordinatorProtocol {
         
     required init(_ navigationController: UINavigationController) {
         self.navigationController = navigationController
-        self.navigationController.navigationBar.prefersLargeTitles = true
+        navigationController.setNavigationBarHidden(true, animated: false)
     }
 
     func start() {
