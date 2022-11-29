@@ -22,7 +22,7 @@ class PokemonListCoordinator: PokemonListCoordinatorProtocol {
     var type: CoordinatorType { .pokemonList }
     
     required init(_ navigationController: UINavigationController) {
-        print("navigationController")
+        
         self.navigationController = navigationController
     }
         
